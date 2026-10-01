@@ -1,0 +1,34 @@
+```gitignore
+
+# SQLite Database
+*.db
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual enviornments
+.venv/
+venv/
+env/
+
+# Eclipse
+.classpath
+.project
+.pdevproject
+.settings/
+
+# Eclipse metadata
+.metadata/
+
+# PyDev
+*.pyc
+*.pydevproject
+
+# IDE/editor files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

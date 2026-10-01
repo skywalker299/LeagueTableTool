@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Main Page</title>
+</head>
+<body>
+	<h1>Table</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Team</>
+				<th>Points</th>
+				<th>GD</th>
+				<th>F</th>
+				<th>A</th>
+				<th>W</th>
+				<th>D</th>
+				<th>L</th>
+				<th>GP</th>
+				<th> </th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for team in standings %}
+			<tr>
+				<td>{{ loop.index }}</td>
+				<td>{{ team.name }}</td>
+				<td>{{ team.points }}</td>
+				<td>{{ team.goalDifference }}</td>
+				<td>{{ team.goalScored }}</td>
+				<td>{{ team.goalConceded }}</td>
+				<td>{{ team.wins }}</td>
+				<td>{{ team.draws }}</td>
+				<td>{{ team.losses }}</td>
+				<td>{{ team.gamesPlayed }}</td>
+				<td><button>Edit</button></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<h1>Fixtures</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Code</th>
+				<th>Home Team</th>
+				<th>Score</th>
+				<th>Away Team</th>
+				<th>Played</th>
+				<th> </th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for fixture in fixtureList %}
+			<tr>
+				<td>{{ fixture.date }}</td>
+				<td>{{ fixture.fcode }}</td>
+				<td>{{ fixture.homeTeam.name }}</td>
+				<td>{{ fixture.homeScore }} : {{ fixture.awayScore }}</td>
+				<td>{{ fixture.awayTeam.name}}</td>
+				<td>{% if fixture.played %} Yes {% else %} No {% endif %}</td>
+				<td><form method="GET" action="{{ url_for('addResult') }}">
+					<input type="hidden" name="fcode" value="{{ fixture.fcode }}">
+					<button type=submit {% if fixture.played == 1 %}disabled{% endif %}>
+						Add result
+					</button></td>
+			</tr>	</form>
+			{% endfor %}
+		</tbody>
+	</table>
+	<div class="form-popup" id="addFixture">
+		<form method="POST" action="{{ url_for('addFixture') }}" id="addFixtureForm">
+			
+			<h2>Add Fixture</h2>
+				
+				<label for="homeTeam"><b>Home Team: </b> </label>
+					
+					<select name="homeTeam" id="homeTeam">
+						{% for team in teams %}
+							<option value="{{ team.tcode }}"> {{ team.name }} </option>
+						{% endfor %}
+					</select>
+				
+				<br><br>
+				
+				<label for="awayTeam"><b>Away Team: </b></label>
+					<select name="awayTeam" id="awayTeam">
+						{% for team in teams %}
+							<option value="{{ team.tcode }}"> {{ team.name }} </option>
+						{% endfor %}
+					</select>
+			<br><br>
+			
+			<label for="date"><b>Enter Date: </b></label>
+			<input type="date" id="date" name="date">
+			
+			<br><br>
+			<button type="submit">Add Fixture</button>
+		</form>
+	</div>
+	
+</body>
+</html>

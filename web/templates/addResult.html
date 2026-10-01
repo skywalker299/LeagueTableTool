@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Add Result</title>
+</head>
+<body>
+	<h1>Add Fixture</h1>
+	<h2> {{ fixture.homeTeam.name }} : {{ fixture.awayTeam.name }} </h2>
+	<form method="POST" action="{{ url_for('addResult') }}">
+		<input type="hidden" name="fcode" value="{{ fixture.fcode }}">
+		
+		<label for="homeScore"> <b>{{ fixture.homeTeam.name }} </b></label>
+		<input type="number" name="homeScore" min="0" required>
+		
+		<span> : </span>
+		
+		<input type="number" name="awayScore" min="0" required>
+		<label for="awayScore"> <b>{{ fixture.awayTeam.name }}</b> </label>
+		
+		<br><br>
+		
+		<button type="submit">Submit Result</button>
+	</form>
+	<br><br>
+	<form method="GET" action="{{ url_for('index')}}">
+		<button type="submit">Cancel</button>
+	</form>
+</body>
+
+</html>
